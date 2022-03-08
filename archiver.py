@@ -23,27 +23,27 @@ def readByteArray(fd, byteArray):
         sys.exit(1)
 
 #Below is just to test the methods above using the README file.#
-print("Attempting to archive file...\n")
-try:
-    os.remove("test.md")
-except:
-    pass
-path = "README.md"
-size = os.path.getsize(path)
-if os.path.exists(path):
-    byteArray = writeByteArray(path)
-    print(byteArray)
-    print("---------------------------------------------------------------")
-    print("Attempting to unarchive file...\n")
-    readByteArray("test.md", byteArray)
-    try:
-        with open("test.md", 'r') as f:
-            print(f.read())
-    except FileNotFoundError:
-        print("File could not be found or open...")
-        sys.exit(1)
-else:
-    print("File %s does not exist." % path)
-    sys.exit(1)
-print("\nDone...")
-sys.exit(0)
+#print("Attempting to archive file...\n")
+#try:
+#    os.remove("test.md")
+#except:
+#    pass
+#path = "README.md"
+#size = os.path.getsize(path)
+#if os.path.exists(path):
+#    byteArray = writeByteArray(path)
+#    print(byteArray)
+#    print("---------------------------------------------------------------")
+#    print("Attempting to unarchive file...\n")
+#    readByteArray("test.md", byteArray)
+#    try:
+#        with open("test.md", 'r') as f:
+#            print(f.read())
+#    except FileNotFoundError:
+#        print("File could not be found or open...")
+#        sys.exit(1)
+#else:
+#    print("File %s does not exist." % path)
+#    sys.exit(1)
+#print("\nDone...")
+#sys.exit(0)
