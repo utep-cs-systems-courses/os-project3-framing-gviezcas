@@ -22,6 +22,14 @@ def readByteArray(fd, byteArray):
         print("Error while opening file...")
         sys.exit(1)
 
+def archiver(byteArray):
+    size = len(byteArray)
+    sizeString = str(size)
+    sizeOfSize = len(sizeString)
+    byteArray[0:0] = sizeString.encode()
+    return_tuple = (byteArray, sizeOfSize)
+    return return_tuple
+
 #Below is just to test the methods above using the README file.#
 #print("Attempting to archive file...\n")
 #try:
@@ -29,9 +37,9 @@ def readByteArray(fd, byteArray):
 #except:
 #    pass
 #path = "README.md"
-#size = os.path.getsize(path)
 #if os.path.exists(path):
 #    byteArray = writeByteArray(path)
+#    archiver(byteArray)
 #    print(byteArray)
 #    print("---------------------------------------------------------------")
 #    print("Attempting to unarchive file...\n")

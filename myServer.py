@@ -35,7 +35,7 @@ while True:
         path = "README.md"
         if os.path.exists(path):
             byteArray = writeByteArray(path)
-            size = len(byteArray)
+            byteArray, size = archiver(byteArray)
             totalsent = 0
             while totalsent < size:
                 sent = conn.send(byteArray[totalsent:])
