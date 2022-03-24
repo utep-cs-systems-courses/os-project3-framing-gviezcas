@@ -27,23 +27,25 @@ s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 s.bind((listenAddr, listenPort))
 s.listen(1)              # allow only one outstanding request
 # s is a factory for connected sockets
-
 while True:
     conn, addr = s.accept() # wait until incoming connection request (and accept it)
     if os.fork() == 0:      # child becomes server
         print('Connected by', addr)
-        path = "README.md"
-        if os.path.exists(path):
-            byteArray = writeByteArray(path)
-            byteArray, size = archiver(byteArray)
-            totalsent = 0
-            while totalsent < size:
-                sent = conn.send(byteArray[totalsent:])
-                if sent == 0:
-                    raise RuntimeError("Socket connection broken.")
-                totalsent += sent
-            time.sleep(0.25);       # delay 1/4s
-            conn.shutdown(socket.SHUT_WR)
-            sys.exit(0)
+        path = "README.md ../nets-python-intro/Readme.md".split()
+        for elem in path:
+            if os.path.exists(elem):
+                byteArray = writeByteArray(elem)
+                byteArray, size = archiver(byteArray)
+                totalsent = 0
+                while totalsent < size:
+                    sent = conn.send(byteArray[totalsent:])
+                    if sent == 0:
+                        raise RuntimeError("Socket connection broken.")
+                    totalsent += sent
+            else:
+                print("Path does not exist...")
+        time.sleep(0.25);       # delay 1/4s
+        conn.shutdown(socket.SHUT_WR)
+        sys.exit(0)
 
 

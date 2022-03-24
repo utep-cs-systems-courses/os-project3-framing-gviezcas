@@ -25,9 +25,8 @@ def readByteArray(fd, byteArray):
 def archiver(byteArray):
     size = len(byteArray)
     sizeString = str(size)
-    sizeOfSize = len(sizeString)
-    byteArray[0:0] = sizeString.encode()
-    return_tuple = (byteArray, sizeOfSize)
+    #byteArray[0:len(sizeString)] = sizeString.encode()
+    return_tuple = (byteArray, size)
     return return_tuple
 
 #Below is just to test the methods above using the README file.#
@@ -39,7 +38,8 @@ def archiver(byteArray):
 #path = "README.md"
 #if os.path.exists(path):
 #    byteArray = writeByteArray(path)
-#    archiver(byteArray)
+#    byteArray, size = archiver(byteArray)
+#    print(size)
 #    print(byteArray)
 #    print("---------------------------------------------------------------")
 #    print("Attempting to unarchive file...\n")
