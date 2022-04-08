@@ -2,7 +2,7 @@
 
 # Echo server program
 
-import socket, sys, re, os, time
+import socket, sys, re, os, time, threading
 sys.path.append("../lib")       # for params
 from lib import params
 from archiver import *
@@ -27,8 +27,8 @@ s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 s.bind((listenAddr, listenPort))
 s.listen(1)              # allow only one outstanding request
 # s is a factory for connected sockets
-while True:
-    conn, addr = s.accept() # wait until incoming connection request (and accept it)
+
+def sendData(conn, addr):
     if os.fork() == 0:      # child becomes server
         print('Connected by', addr)
         path = "README.md ../nets-python-intro/Readme.md".split()
@@ -48,4 +48,7 @@ while True:
         conn.shutdown(socket.SHUT_WR)
         sys.exit(0)
 
-
+while True:
+    conn, addr = s.accept()
+    t = threading.Thread(target=sendData, args=[conn, addr])
+    t.start()

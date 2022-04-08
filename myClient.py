@@ -58,17 +58,12 @@ if delay != 0:
     time.sleep(int(delay))
     print("done sleeping")
 
-def receiveData(s):
-    byteArray = bytearray()
-    while 1:
-        data = s.recv(1024)
-        byteArray += bytearray(data)
-        if len(data) == 0:
-            break
-        print("Received***********************************\n'%s'" % byteArray.decode())
-        print("Zero length read.  Closing")
-    s.close()
-
-while 1: #Need to figure out how to how to continuosly accept new socket.
-    t = threading.Thread(target=receiveData, args=[s])
-    t.start()
+byteArray = bytearray()
+while 1:
+    data = s.recv(1024)
+    byteArray += bytearray(data)
+    if len(data) == 0:
+        break
+    print("Received***********************************\n'%s'" % byteArray.decode())
+    print("Zero length read.  Closing")
+s.close()
