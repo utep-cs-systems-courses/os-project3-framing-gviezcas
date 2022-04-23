@@ -32,8 +32,15 @@ def sendData(conn, addr):
     if os.fork() == 0:      # child becomes server
         print('Connected by', addr)
         path = "README.md ../nets-python-intro/Readme.md".split()
+        fileDictionary = []
         for elem in path:
             if os.path.exists(elem):
+                fileName = os.path.basename(elem)
+                if fileName not in fileDictionary:
+                    fileDictionary = fileName
+                else:
+                    print("File already exists...")
+                    continue
                 byteArray = writeByteArray(elem)
                 byteArray, size = archiver(byteArray)
                 totalsent = 0
